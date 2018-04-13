@@ -1,0 +1,557 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>wifi</title>
+    <meta name="Keywords" content="wifi, 数据采集，aworks" />
+    <meta name="author" content="young" />
+    <!-- For-Mobile-Apps -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script type="text/javascript">
+        //  delay 1s
+        var int = self.setInterval("loadXMLDoc()", 1000);
+        var fileName;
+		var wifiName;//= "fsdf,sf,sf,gfdgdf,few,,rg,h,uj,r,hs,fs,h,tr,g,fd,gdf,h,sdg,sdf";
+        function loadXMLDoc() {
+            var xmlhttp;
+            if (window.XMLHttpRequest) {
+                //  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+                xmlhttp = new XMLHttpRequest();
+            }
+            else {
+                // IE6, IE5 浏览器执行代码
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xmlhttp.open("GET", "http://192.168.12.206:8080/goform/display5", true);  //
+            xmlhttp.send(null);
+            xmlhttp.onreadystatechange = function () {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    var json = JSON.parse(xmlhttp.responseText.replace("<html>\n", "").replace("</html>", ""));
+					fileName = json.sdmunu;
+					wifiName = json.wifiname;
+					
+					var dataString = new String(json.data);
+                    var dataArr = new Array();
+                    dataArr = dataString.split(",");
+					
+					document.getElementById("time").innerHTML = dataArr[0];
+                    document.getElementById("moisture").innerHTML = dataArr[1];
+                    document.getElementById("altitude").innerHTML = dataArr[2];
+                    document.getElementById("temperature").innerHTML = dataArr[3];
+                    document.getElementById("pressure").innerHTML = dataArr[4];
+					
+					document.getElementById("wifi_link_message").innerHTML=json.wifi_link_message;
+					document.getElementById("wifi_AP_message").innerHTML=json.wifi_AP_message;
+					ocument.getElementById("cloud_link_message").innerHTML=json.cloud_link_message;
+					
+                }
+            }
+        }
+
+        function click_upload() {
+            alert(" upload ok");
+        }
+
+        //要想滑动不停  scroll_begin的内容高度必须大于scroll_div的高度
+        function ScrollImgLeft() {
+            var speed = 50;
+            var scroll_begin = document.getElementById("scroll_begin");
+            var scroll_end = document.getElementById("scroll_end");
+            var scroll_div = document.getElementById("scroll_div");
+            scroll_end.innerHTML = scroll_begin.innerHTML;
+            function Marquee() {
+                //scrollTop滑动条起点向下滑动的距离 当滑动条滑动的距离为一个div的高度时 即一个div显示完后
+                //迅速重置滑动条的起点为最上端 重新显示第一个div内容 视觉上达到滚动的效果
+                if (scroll_end.offsetHeight - scroll_div.scrollTop <= 0)
+                    scroll_div.scrollTop -= scroll_begin.offsetHeight;
+                else
+                    scroll_div.scrollTop++;
+            }
+            var MyMar = setInterval(Marquee, speed);
+            scroll_div.onmouseover = function () { clearInterval(MyMar); }
+            scroll_div.onmouseout = function () { MyMar = setInterval(Marquee, speed); }
+        }
+
+    </script>
+
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!-- //For-Mobile-Apps -->
+    <!-- Custom-Stylesheet-Links -->
+    <link rel="stylesheet" href="css/bootstrap.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="css/swipebox.css">
+    <!-- //Custom-Stylesheet-Links -->
+
+    <script src="js/jquery.min.js"></script>
+    <!-- Web-Fonts -->
+    <!-- start-smooth-scrolling -->
+    <script type="text/javascript" src="js/move-top.js"></script>
+    <script type="text/javascript" src="js/easing.js"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            $(".scroll").click(function (event) {
+                event.preventDefault();
+                $('html,body').animate({ scrollTop: $(this.hash).offset().top }, 1000);
+            });
+        });
+    </script>
+    <style type="text/css">
+    </style>
+</head>
+
+
+
+<body>
+    <!-- Header -->
+    <div class="header">
+        <nav class="navbar navbar-default">
+            <div class="container">
+                <div class="top">
+                    <div class="logo">
+                        <a href="#"><h2><div id="Layer1"></div>ZLGMCU</h2></a>
+                    </div>
+
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+
+                    <div id="navbar" class="navbar-collapse navbar-right collapse hover-effect">
+                        <ul class="nav navbar-nav">
+                            <li><a href="#home" class="scroll">主页</a></li>
+                            <li><a href="#about" class="scroll">关于</a></li>
+                            <li><a href="#services" class="scroll">显示</a></li>
+                            <li><a href="#gallery" class="scroll">上传</a></li>
+                            <li><a href="#news" class="scroll">下载</a></li>
+                            <li><a href="#contact" class="scroll">AP 设置</a></li>
+							 <li><a href="#wifi" class="scroll">wifi连接</a></li>
+                        </ul>
+                    </div>
+                    <div class="header-search">
+                        <div id="sb-search" class="sb-search">
+                            <form action="#" method="post">
+                                <input class="sb-search-input" name="search" placeholder="Enter your search term..." id="search" required="">
+                                <input class="sb-search-submit" type="submit" value="">
+                                <span class="sb-icon-search"> </span>
+                            </form>
+                            <div class="clearfix"> </div>
+                            <!-- search-scripts -->
+                            <script src="js/classie.js"></script>
+                            <script src="js/uisearch.js"></script>
+                            <script>
+                                new UISearch(document.getElementById('sb-search'));
+                            </script>
+                            <!-- //search-scripts -->
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+
+        </nav>
+        <div class="bannertext">
+            <h1 class="STYLE2">WELCOME</h1>
+            <h1 class="STYLE2">基于i.mx28x的wifi数据采集系统</h1>
+            <p class="STYLE2">&nbsp;</p>
+            <p class="STYLE2">&nbsp;</p>
+            <p class="STYLE2">&nbsp;</p>
+            <div class="arrow">
+                <a href="#contact" class="scroll"><img src="images/arrow.png"></a>
+            </div>
+        </div>
+    </div>
+    <!-- //Header -->
+    <div class="history" id="about">
+        <div class="container">
+            <h3>关于</h3>
+            <p>课题名称：基于i.mx28x的wifi数据采集系统</p>
+            <p>组员：王龙征，杨跃，杨海</p>
+            <p>制作人：杨海</p>
+        </div>
+    </div>
+
+    <!-- Services -->
+    <div class="services" id="services">
+        <div class="container">
+            <h3>显示 </h3>
+            <div class="service-grids">
+
+                <div class="col-md-4 col-sm-4 sg1">
+                    <h4>Time</h4>
+                    <label class="whiteline"></label>
+                    <p><span id="time">  </span></p>
+                </div>
+
+                <div class="col-md-4 col-sm-4 sg2">
+                    <h4>Humidity(%)</h4>
+                    <label class="whiteline"></label>
+                    <p><span id="moisture"> </span></p>
+                </div>
+
+                <div class="col-md-4 col-sm-4 sg3">
+                    <h4>Altitude(m)</h4>
+                    <label class="whiteline"></label>
+                    <p><span id="altitude">  </span></p>
+                </div>
+
+                <div class="col-md-4 col-sm-4 sg4">
+                    <h4>Temperature(℃)</h4>
+                    <label class="whiteline"></label>
+                    <p><span id="temperature">  </span></p>
+                </div>
+
+                <div class="col-md-4 col-sm-4 sg5">
+                    <h4>Barometric pressure(Pa)</h4>
+                    <label class="whiteline"></label>
+                    <p><span id="pressure">  </span></p>
+                </div>
+
+                <div class="col-md-4 col-sm-4 sg6">
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+    <div class="gallery" id="gallery">
+        <div class="container">
+            <h3>上传</h3>
+            <div class="gallery-grids">
+                <form name="upload" enctype="multipart/form-data" method="post" action="/goform/upload" target="up_load_ok">
+                    <label>
+                        <div align="left">
+                            上传文件：
+                            <input type="file" name="file">
+                            <label>
+                                <input type="submit" name="updload" value="提交" onClick="click_upload()">
+                            </label>
+                        </div>
+                    </label>
+                    注：该功能主要上传代码升级 *.bin文件
+                </form>
+                <iframe name="up_load_ok" style="display:none;"></iframe>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"> </div>
+    <!-- swipe box js -->
+    <script src="js/jquery.swipebox.min.js"></script>
+    <script type="text/javascript">
+        jQuery(function ($) {
+            $(".swipebox").swipebox();
+        });
+    </script>
+    <!-- //swipe box js -->
+    <div class="news" id="news">
+        <div class="container">
+            <h3>下载</h3>
+                <div class="col-md-6 col-sm-9 newsl">
+                    <h4>文件选择:<span id=file_status  >(加载中,请稍后……)</span></h4>
+                    <div id="gongao">
+                        <div style="width:300px;height:290px;margin:0 auto;white-space: nowrap;overflow:auto;" id="scroll_div" class="scroll_div">
+                            <div id="scroll_begin">
+                                <span id=sd_munu></span>
+                            </div>
+                            <div id="scroll_end"></div>
+                      </div>
+                        <script type="text/javascript">ScrollImgLeft();</script>
+                    </div>
+                </div>
+                <style type="text/css">
+                    #gongao {
+                        width: 310px;
+                        height: 300px;
+                        overflow: hidden;
+                        line-height: 30px;
+                        font-size: 13px;
+                        font-family: '宋体';
+                        background: #DDE5ED;
+                        color: #0C77CF;
+                        font-weight: bold;
+                    }
+                </style>
+                <script type="text/javascript">
+                    var x = self.setTimeout("display_file()", 6000);
+                    function display_file() {
+					 document.getElementById("file_status").innerHTML = "(加载完毕)";
+                        var span = document.getElementById("sd_munu");
+                        var fileString = new String(fileName);
+                        var fileArr = new Array();
+                        fileArr = fileString.split(",");
+                        for (var i = 0; i < fileArr.length; i++) {
+                            var p = document.createElement("p");
+                            var a = document.createElement("a");
+							a.innerHTML = fileArr[i];
+							a.href = '/sd/' + fileArr[i];
+                            a.download = fileArr[i];
+                            span.appendChild(a);
+                            span.appendChild(p);
+                            a.onclick = function () {
+                                var form = document.createElement("form");
+                                document.body.appendChild(form);
+                                var input = document.createElement("input");
+                                input.type = "hidden";
+                                form.appendChild(input);
+                                form.method = "post";
+                                input.value = this.innerHTML;		// 文件名
+                                form.target = "down_load_ok";
+                                input.name = "fileName";
+                                form.action = "/goform/download";
+                                form.submit();
+
+                            }
+                        }
+                    }
+
+                </script>
+        </div>
+    </div>
+    <!--// News -->
+    <!-- Contact -->
+    <div class="contact" id="contact">
+        <div class="container">
+            <h3>AP 配置</h3>
+            <form action="/goform/send_ap" method="post">
+                <div class="col-md-6 cont-right">
+                    <h4 align="right">配置项</h4>
+                    <div align="right">
+                        <p>
+                            SSID <input type="text" name="ssid" value="young"
+                                        onfocus="this.value='';"
+                                        onblur="if (this.value =='') {this.value ='young';}"> <br>
+                            KEY <font id="pass">
+                                <input type="password" id="password"
+                                       name="password">
+                            </font> <br /> 密码显示<input type="checkbox"
+                                                      id="showPass" onChange="displayPassword()"> <br>
+
+                            <script type="text/javascript">
+                                var flag = true;
+                                function displayPassword() {
+                                    var temp = document.getElementById('password').value;
+                                    if (flag) {
+                                        document.getElementById('pass').innerHTML = '<input type=text id=password name=password  >';
+                                        flag = false;
+                                    } else {
+                                        document.getElementById('pass').innerHTML = '<input type=password id=password name=password   >';
+                                        flag = true;
+                                    }
+                                    document.getElementById('password').value = temp;
+                                }
+                            </script>
+                            <br> IP <input type="text" name="IP" value="192.168.12.206"
+                                           onfocus="this.value='192.168.12.206';" readonly="true">
+
+                            <br> NETMASK <input type="text" name="netmask"
+                                                value="255.255.255.0" onFocus="this.value='255.255.255.0';"
+                                                readonly="true">
+
+                            <br> GATEWAY <input type="text"
+                                                name="gateway" value="192.168.12.254"
+                                                onfocus="this.value='192.168.12.254';" readonly="true">
+
+                            <br>
+                        </p>
+                        <p>
+                            <label>
+                                channel <select name="channel" size="1">
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                    <option>6</option>
+                                    <option>7</option>
+                                    <option>8</option>
+                                    <option>9</option>
+                                    <option>10</option>
+                                </select>
+                            </label>
+                        </p>
+                        <br>
+                        <p>
+                            <label>
+                                way <select name="way">
+                                    <option>wpa2</option>
+                                    <option>wpa2_aes</option>
+                                </select>
+                            </label>
+                        </p>
+                        <p>
+                            <br> <input type="submit" class="hvr-rectangle-in"
+                                        value="SEND">
+										<br>
+										<br>
+										<p>configuration state:<span id="wifi_AP_message">  </span></p>
+
+                        </p>
+                    </div>
+                </div>
+            </form>
+            <div class="col-md-6 col-sm-6 cr">
+                <h4>默认配置：</h4>
+                <h4>SSID:</h4>
+                <h5>young</h5>
+                <h4>key:</h4>
+                <h5>123456789(密码不能为中文)</h5>
+                <h4>IP &amp; netmask &amp; gateway:(这三项一般不做修改,readonly)</h4>
+                <h5>192.168.12.206</h5>
+                <h5>255.255.255.0</h5>
+                <h5>192.168.12.254</h5>
+                <h4>channel &amp; way :</h4>
+                <h5>2</h5>
+                <h5>wpa2</h5>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+    <script src="js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $().UItoTop({ easingType: 'easeOutQuart' });
+
+        });
+    </script>
+	
+    <!-- wifi -->
+    <div class="wifi" id="wifi">
+        <div class="container">
+            <h3>wifi连接</h3>
+			 <form action="/goform/scan" method="post" target="wifi_AP_ok">
+            <div class="gallery-grids" align="right">
+                <div class="col-md-6 col-sm-9 newsl">
+                    <div id="gongao2" align="left">
+                        <div style="width:290px;height:300px;margin:0 auto;white-space: nowrap;overflow:auto;" id="scroll_div" class="scroll_div">
+                            <div id="scroll_begin">
+                                <span id=wifi_munu >
+                                </span>
+                            </div>
+                            <div id="scroll_end"></div>
+                      </div>
+                        <script type="text/javascript">ScrollImgLeft();</script>
+                    </div>
+					<br>
+					<p>
+					    <input type="submit" name="wifi_scan" value="scan" align="center" style="color: #FFCC00" style="width:80; height:30"  onClick="display_wifi()" >
+					</p>
+                </div>
+                </form>
+				
+				<script type="text/javascript">
+
+                    var x = self.setInterval("display_wifi()", 3000);
+                    function display_wifi() {
+                        var span = document.getElementById("wifi_munu");
+						var fonts = span.getElementsByTagName("font");
+						/* 一定要从最后一个节点开始删除 每次循环都会重新读取fonts.length的值,简直有毛病 */
+						for(var i = fonts.length-1;i>=0;i--) {  
+						      var x = span.removeChild(fonts[i]);  
+						  }  
+                        var wifiString = new String(wifiName);
+                        var wifiArr = new Array();
+                        wifiArr = wifiString.split(",");
+                        for (var j = 0; j < wifiArr.length; j++) {
+                       		var font = document.createElement("font");
+                        	var p = document.createElement("p");
+                        	font.size=5;
+							font.innerHTML = wifiArr[j];
+							font.appendChild(p);
+							span.appendChild(font);
+							font.onclick = function () {
+							document.getElementById("wifi_ssid").value=this.innerHTML.replace(/<.*?>/ig,"");
+                            }             
+                        }
+                    }
+                </script>
+                <style type="text/css">
+                    #gongao2 {
+                        width:	310px;
+                        height:  300px;
+                        overflow: hidden;
+                        line-height: 30px;
+                        font-size: 13px;
+                        font-family: '宋体';
+                        background: #DDE5ED;
+                        color: #0C77CF;
+                        font-weight: bold;
+                    }
+                </style>
+
+                <div class="col-md-5 col-sm-9 newsl" id="xx">
+                    <form action="/goform/send_wifi_AP" method="post" target="wifi_AP_ok" align="left">
+                        <table align="center">
+                            <tr>
+                                <td>
+                                    <font color=white>账号:</font><input type="text" id="wifi_ssid" name="wifi_ssid" style="color: #888;
+																width: 100%;
+																padding: 0px 0px 0px 5px;
+																border: 1px solid #C5E2FF;
+																background: #FBFBFB;
+																outline: 0;
+																-webkit-box-shadow:inset 0px 1px 6px #ECF3F5;
+																box-shadow: inset 0px 1px 6px #ECF3F5;
+																font: 200 12px/25px Arial, Helvetica, sans-serif;
+																height: 30px;
+																line-height:15px;
+																margin: 2px 6px 16px 0px;"
+																readonly="true" />
+                                </td>
+                            </tr>
+                            <br />
+                            <tr>
+                                <td>
+                                    <font color=white>密码:</font><input type="password" id="wifi_key" name="wifi_key" style="color: #888;
+																width: 100%;
+																padding: 0px 0px 0px 5px;
+																border: 1px solid #C5E2FF;
+																background: #FBFBFB;
+																outline: 0;
+																-webkit-box-shadow:inset 0px 1px 6px #ECF3F5;
+																box-shadow: inset 0px 1px 6px #ECF3F5;
+																font: 200 12px/25px Arial, Helvetica, sans-serif;
+																height: 30px;
+																line-height:15px;
+																margin: 2px 6px 16px 0px;" 
+																/>
+                                </td>
+                            </tr>
+                            <tr>
+                            	<td>
+                                    <br>
+		                            <br>
+		                            <br>
+		                            <br>
+		                            <br>
+		                            <input type="submit" id="send_link" name="Submit2" value="SEND" onClick="send_wifi()" align="center">
+									<br>
+									<br>
+                            	</td>
+                            </tr>
+                            <tr>
+                            	<td>
+									<p>link   status  :<span id="wifi_link_message">  </span></p>
+									<p>cloud status :<span id="cloud_link_message">  </span></p>
+                            	</td>
+                            </tr>
+                        </table>
+                    </form>
+							<script>
+							function send_wifi() {
+							alert(" send success");
+							}
+							</script>
+                    <iframe name="wifi_AP_ok" style="display:none;"></iframe>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+</body>
+</html>
